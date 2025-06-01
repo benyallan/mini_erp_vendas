@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
+    use FormatsCurrency;
+
     /**
      * Os atributos que podem ser atribuídos em massa.
      *

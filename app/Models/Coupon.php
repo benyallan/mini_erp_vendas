@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Support\FormatsCurrency;
+use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;

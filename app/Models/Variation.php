@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Support\FormatsCurrency;
 
 class Variation extends Model
 {

@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
-Route::get('/', [ProductController::class, 'index']);
-Route::get('/product/create', [ProductController::class, 'create']);
-Route::post('/product', [ProductController::class, 'store']);
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/product/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('/product', [ProductController::class, 'store'])->name('products.store');
 Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
 Route::put('/product/{id}', [ProductController::class, 'update']);
 Route::post('/cart/add', [ProductController::class, 'addToCart']);

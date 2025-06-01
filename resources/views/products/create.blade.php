@@ -1,12 +1,38 @@
-<form method="POST" action="/product">
-    @csrf
-    <input type="text" name="name" placeholder="Nome do produto" required>
-    <input type="number" step="0.01" name="price" placeholder="Preço base" required>
-    <h4>Variações:</h4>
-    <div id="variations">
-        <input type="text" name="variations[0][name]" placeholder="Nome variação">
-        <input type="number" step="0.01" name="variations[0][price]" placeholder="Preço variação">
-        <input type="number" name="variations[0][stock]" placeholder="Estoque inicial">
-    </div>
-    <button type="submit">Salvar Produto</button>
-</form>
+@extends('layouts.app')
+
+@section('content')
+    <form method="POST" action="{{ route('products.store') }}">
+        @csrf
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome do Produto</label>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+
+        <div class="mb-3">
+            <h5>Variações</h5>
+            <div id="variations">
+                <div class="row g-2 mb-2">
+                    <div class="col">
+                        <input type="text" name="variations[0][name]" class="form-control" placeholder="Cor">
+                    </div>
+                    <div class="col">
+                        <select name="variations[0][size]" class="form-select">
+                            <option value="P">P</option>
+                            <option value="M">M</option>
+                            <option value="G">G</option>
+                            <option value="GG">GG</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="number" name="variations[0][price]" class="form-control" placeholder="Preço (centavos)">
+                    </div>
+                    <div class="col">
+                        <input type="number" name="variations[0][stock]" class="form-control" placeholder="Estoque">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar Produto</button>
+    </form>
+@endsection

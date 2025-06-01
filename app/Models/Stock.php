@@ -23,4 +23,9 @@ class Stock extends Model
     {
         return $this->belongsTo(Variation::class);
     }
+
+    public function decrementQuantity(int $amount): void
+    {
+        $this->decrement('quantity', $amount);
+    }
 }

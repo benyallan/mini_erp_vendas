@@ -8,6 +8,7 @@ use App\Models\Variation;
 use App\Services\FinalizeOrderService;
 use DB;
 use Illuminate\Http\Request;
+use App\Services\CartService;
 
 class ProductController extends Controller
 {
@@ -65,16 +66,16 @@ class ProductController extends Controller
         return redirect('/');
     }
 
-    public function addToCart(Request $request)
+    public function addToCart(Request $request, CartService $cartService)
     {
         $variation = Variation::with('stock')->findOrFail($request->variation_id);
         $quantity = (int) $request->quantity;
 
-        if ($variation->stock->quantity < $quantity) {
+        if (!$variation->canFulfill($quantity)) {
             return redirect()->back()->with('error', 'Estoque insuficiente.');
         }
 
-        $cart = session()->get('cart', []);
+        $cart = $cartService->get();
 
         $cart[] = [
             'variation_id' => $variation->id,
@@ -83,25 +84,16 @@ class ProductController extends Controller
             'quantity' => $quantity,
         ];
 
-        session(['cart' => $cart]);
+        $cartService->put($cart);
 
         return redirect()->back()->with('success', 'Item adicionado ao carrinho.');
     }
 
-    public function checkout()
+    public function checkout(CartService $cartService)
     {
-        $cart = session('cart', []);
-
-        $subtotal = collect($cart)->sum(function ($item) {
-            return $item['price'] * $item['quantity'];
-        });
-
-        $shipping = match (true) {
-            $subtotal > 20000 => 0,
-            $subtotal >= 5200 && $subtotal <= 16659 => 1500,
-            default => 2000,
-        };
-
+        $cart = $cartService->get();
+        $subtotal = $cartService->subtotal($cart);
+        $shipping = $cartService->shipping($subtotal);
         $total = $subtotal + $shipping;
 
         return view('products.checkout', compact('cart', 'subtotal', 'shipping', 'total'));

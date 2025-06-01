@@ -44,4 +44,9 @@ class Variation extends Model
     {
         return $this->formatCurrency($this->price);
     }
+
+    public function canFulfill(int $quantity): bool
+    {
+        return $this->stock && $this->stock->quantity >= $quantity;
+    }
 }

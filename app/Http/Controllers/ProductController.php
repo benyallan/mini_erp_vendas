@@ -55,6 +55,13 @@ class ProductController extends Controller
         return redirect('/');
     }
 
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect('/');
+    }
+
     public function addToCart(Request $request)
     {
         $cart = Session::get('cart', []);

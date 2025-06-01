@@ -27,6 +27,11 @@
                     <td>
                         <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                         <a href="#" class="btn btn-sm btn-outline-success">Comprar</a>
+                        <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?')" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger">Excluir</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

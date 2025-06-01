@@ -18,14 +18,14 @@
                         <ul>
                             @foreach($product->variations as $variation)
                                 <li>
-                                    {{ $variation->size->value ?? '' }} {{ $variation->name }} - R$ {{ $variation->price_in_reais }}
+                                    {{ $product->name }} {{ $variation->name }} - R$ {{ $variation->price_in_reais }}
                                     (Estoque: {{ $variation->stock->quantity ?? 0 }})
                                 </li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                         <a href="#" class="btn btn-sm btn-outline-success">Comprar</a>
                     </td>
                 </tr>

@@ -13,15 +13,7 @@
             <div id="variations">
                 <div class="row g-2 mb-2">
                     <div class="col">
-                        <input type="text" name="variations[0][name]" class="form-control" placeholder="Cor">
-                    </div>
-                    <div class="col">
-                        <select name="variations[0][size]" class="form-select">
-                            <option value="P">P</option>
-                            <option value="M">M</option>
-                            <option value="G">G</option>
-                            <option value="GG">GG</option>
-                        </select>
+                        <input type="text" name="variations[0][name]" class="form-control" placeholder="Cor e tamanho (ex: Vermelho P)">
                     </div>
                     <div class="col">
                         <input type="number" name="variations[0][price]" class="form-control" placeholder="Preço (centavos)">

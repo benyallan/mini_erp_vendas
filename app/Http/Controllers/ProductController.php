@@ -20,6 +20,27 @@ class ProductController extends Controller
         return view('products.create');
     }
 
+    public function edit(Product $product)
+    {
+        return view('products.edit', compact('product'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->only('name', 'price'));
+        $product->variations()->delete();
+
+        foreach ($request->variations as $variationData) {
+            $variation = $product->variations()->create([
+                'name' => $variationData['name'],
+                'price' => $variationData['price'],
+            ]);
+            $variation->stock()->create(['quantity' => $variationData['stock']]);
+        }
+
+        return redirect('/');
+    }
+
     public function store(Request $request)
     {
         $product = Product::create($request->only('name', 'price'));

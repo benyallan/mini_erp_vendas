@@ -8,6 +8,7 @@ use App\Models\Variation;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -90,9 +91,21 @@ class ProductController extends Controller
 
     public function checkout()
     {
-        $cart = Session::get('cart', []);
+        $cart = session('cart', []);
 
-        return view('products.checkout', compact('cart'));
+        $subtotal = collect($cart)->sum(function ($item) {
+            return $item['price'] * $item['quantity'];
+        });
+
+        $shipping = match (true) {
+            $subtotal > 20000 => 0,
+            $subtotal >= 5200 && $subtotal <= 16659 => 1500,
+            default => 2000,
+        };
+
+        $total = $subtotal + $shipping;
+
+        return view('products.checkout', compact('cart', 'subtotal', 'shipping', 'total'));
     }
 
     public function finalizeOrder(Request $request)

@@ -5,8 +5,8 @@ namespace App\Models;
 use App\Enums\OrderStatus;
 use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
@@ -36,8 +36,6 @@ class Order extends Model
 
     /**
      * Relacionamento: retorna os itens associados a este pedido.
-     *
-     * @return HasMany
      */
     public function items(): HasMany
     {
@@ -46,8 +44,6 @@ class Order extends Model
 
     /**
      * Relacionamento: retorna o cupom utilizado neste pedido (se houver).
-     *
-     * @return BelongsTo
      */
     public function coupon(): BelongsTo
     {

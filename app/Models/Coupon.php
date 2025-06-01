@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 class Coupon extends Model
 {
@@ -36,12 +36,12 @@ class Coupon extends Model
     /**
      * Determina se o cupom é válido para um subtotal fornecido (em centavos).
      *
-     * @param int $subtotal Subtotal do carrinho em centavos.
+     * @param  int  $subtotal  Subtotal do carrinho em centavos.
      * @return bool True se o cupom for válido para o subtotal e ainda estiver ativo.
      */
     public function isValidFor(int $subtotal): bool
     {
-        return !$this->isExpired() && $subtotal >= $this->minimum_amount;
+        return ! $this->isExpired() && $subtotal >= $this->minimum_amount;
     }
 
     /**
@@ -66,8 +66,6 @@ class Coupon extends Model
 
     /**
      * Relacionamento: retorna os pedidos que utilizaram este cupom.
-     *
-     * @return HasMany
      */
     public function orders(): HasMany
     {

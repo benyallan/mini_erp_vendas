@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\FormatsCurrency;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Variation extends Model
 {
@@ -23,8 +23,6 @@ class Variation extends Model
 
     /**
      * Relacionamento: esta variação possui um controle de estoque.
-     *
-     * @return HasOne
      */
     public function stock(): HasOne
     {
@@ -33,8 +31,6 @@ class Variation extends Model
 
     /**
      * Relacionamento: esta variação pertence a um produto.
-     *
-     * @return BelongsTo
      */
     public function product(): BelongsTo
     {
@@ -43,8 +39,6 @@ class Variation extends Model
 
     /**
      * Acessor: retorna o preço da variação formatado em reais (R$).
-     *
-     * @return string
      */
     public function getPriceInReaisAttribute(): string
     {

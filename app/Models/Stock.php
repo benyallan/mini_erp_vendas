@@ -18,8 +18,6 @@ class Stock extends Model
 
     /**
      * Relacionamento: o estoque pertence a uma variação de produto.
-     *
-     * @return BelongsTo
      */
     public function variation(): BelongsTo
     {

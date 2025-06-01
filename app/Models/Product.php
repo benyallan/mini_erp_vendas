@@ -18,8 +18,6 @@ class Product extends Model
 
     /**
      * Relacionamento: um produto possui várias variações.
-     *
-     * @return HasMany
      */
     public function variations(): HasMany
     {

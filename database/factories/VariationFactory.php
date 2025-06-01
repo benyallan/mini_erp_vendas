@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\Size;
-use App\Models\Variation;
 use App\Models\Product;
+use App\Models\Variation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +22,7 @@ class VariationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(Size::cases())->value . ' ' . $this->faker->colorName,
+            'name' => $this->faker->randomElement(Size::cases())->value.' '.$this->faker->colorName,
             'price' => $this->faker->numberBetween(1500, 10000),
             'product_id' => Product::factory(),
         ];

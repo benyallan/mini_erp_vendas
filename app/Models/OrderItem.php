@@ -24,8 +24,6 @@ class OrderItem extends Model
 
     /**
      * Relacionamento: este item pertence a um pedido.
-     *
-     * @return BelongsTo
      */
     public function order(): BelongsTo
     {
@@ -34,8 +32,6 @@ class OrderItem extends Model
 
     /**
      * Relacionamento: este item pertence a uma variação de produto.
-     *
-     * @return BelongsTo
      */
     public function variation(): BelongsTo
     {
@@ -60,6 +56,7 @@ class OrderItem extends Model
     public function getTotalInReaisAttribute(): string
     {
         $total = $this->unit_price * $this->quantity;
+
         return $this->formatCurrency($total);
     }
 }

@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Variation;
-use App\Models\Stock;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
@@ -14,6 +11,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('variations.stock')->get();
+
         return view('products.index', compact('products'));
     }
 
@@ -32,6 +30,7 @@ class ProductController extends Controller
             ]);
             $variation->stock()->create(['quantity' => $variationData['stock']]);
         }
+
         return redirect('/');
     }
 
@@ -40,12 +39,14 @@ class ProductController extends Controller
         $cart = Session::get('cart', []);
         $cart[] = $request->all();
         Session::put('cart', $cart);
+
         return redirect('/checkout');
     }
 
     public function checkout()
     {
         $cart = Session::get('cart', []);
+
         return view('products.checkout', compact('cart'));
     }
 
@@ -57,6 +58,7 @@ class ProductController extends Controller
     public function webhook(Request $request)
     {
         $data = $request->all();
+
         return response()->json(['status' => 'ok']);
     }
 }

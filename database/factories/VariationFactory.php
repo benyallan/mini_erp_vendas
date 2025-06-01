@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\Size;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Database\Eloquent\Factories\Factory;

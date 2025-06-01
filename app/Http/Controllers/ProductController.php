@@ -7,8 +7,6 @@ use App\Models\Product;
 use App\Models\Variation;
 use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -163,7 +161,8 @@ class ProductController extends Controller
             return redirect()->route('products.index', $order)->with('success', 'Pedido finalizado com sucesso.');
         } catch (\Throwable $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Erro ao finalizar pedido: ' . $e->getMessage());
+
+            return redirect()->back()->with('error', 'Erro ao finalizar pedido: '.$e->getMessage());
         }
     }
 

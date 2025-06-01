@@ -51,14 +51,12 @@ class ProductController extends Controller
 
     public function finalizeOrder(Request $request)
     {
-        // lógica de pedido e envio de email
         return redirect('/')->with('success', 'Pedido realizado com sucesso!');
     }
 
     public function webhook(Request $request)
     {
         $data = $request->all();
-        // lógica de webhook
         return response()->json(['status' => 'ok']);
     }
 }

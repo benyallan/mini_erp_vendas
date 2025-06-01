@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\Variation;
-use App\Services\FinalizeOrderService;
-use DB;
-use Illuminate\Http\Request;
 use App\Services\CartService;
+use App\Services\FinalizeOrderService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -71,7 +69,7 @@ class ProductController extends Controller
         $variation = Variation::with('stock')->findOrFail($request->variation_id);
         $quantity = (int) $request->quantity;
 
-        if (!$variation->canFulfill($quantity)) {
+        if (! $variation->canFulfill($quantity)) {
             return redirect()->back()->with('error', 'Estoque insuficiente.');
         }
 
@@ -103,6 +101,7 @@ class ProductController extends Controller
     {
         try {
             $service->handle($request->all());
+
             return redirect()->route('products.index')->with('success', 'Pedido finalizado com sucesso.');
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', 'Erro ao finalizar pedido: '.$e->getMessage());

@@ -36,6 +36,7 @@ class CartService
     public function total(array $cart): int
     {
         $subtotal = $this->subtotal($cart);
+
         return $subtotal + $this->shipping($subtotal);
     }
 }

@@ -31,7 +31,7 @@ class Order extends Model
     ];
 
     protected $attributes = [
-        'status' => OrderStatus::PENDING,
+        'status' => OrderStatus::Pending,
     ];
 
     /**

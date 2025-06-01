@@ -1,7 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Novo Produto</a>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ route('products.create') }}" class="btn btn-primary">Novo Produto</a>
+        <a href="{{ route('checkout') }}" class="btn btn-outline-secondary">Ver Carrinho</a>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -25,8 +40,13 @@
                         </ul>
                     </td>
                     <td>
+                        <form method="POST" action="{{ route('cart.add') }}" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="variation_id" value="{{ $variation->id }}">
+                            <input type="number" name="quantity" value="1" min="1" class="form-control d-inline w-auto">
+                            <button type="submit" class="btn btn-sm btn-success">Comprar</button>
+                        </form>
                         <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-                        <a href="#" class="btn btn-sm btn-outline-success">Comprar</a>
                         <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?')" class="d-inline">
                             @csrf
                             @method('DELETE')

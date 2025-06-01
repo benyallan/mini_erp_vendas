@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Traits\FormatsCurrency;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 class Coupon extends Model
 {
-    use FormatsCurrency;
+    /** @use HasFactory<\Database\Factories\CouponFactory> */
+    use HasFactory, FormatsCurrency;
 
     /**
      * Os atributos que podem ser preenchidos em massa.

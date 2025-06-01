@@ -4,13 +4,15 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use App\Traits\FormatsCurrency;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
-    use FormatsCurrency;
+    /** @use HasFactory<\Database\Factories\OrderFactory> */
+    use HasFactory, FormatsCurrency;
 
     /**
      * Os atributos que podem ser atribuídos em massa.

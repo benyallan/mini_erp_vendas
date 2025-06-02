@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Enums\OrderStatus;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class WebhookRequest extends FormRequest
 {

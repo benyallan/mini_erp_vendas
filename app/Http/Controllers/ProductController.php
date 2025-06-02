@@ -12,7 +12,6 @@ use App\Models\Product;
 use App\Models\Variation;
 use App\Services\CartService;
 use App\Services\FinalizeOrderService;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {

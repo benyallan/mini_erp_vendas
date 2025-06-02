@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Variation;
 use App\Services\CartService;
@@ -112,8 +114,27 @@ class ProductController extends Controller
 
     public function webhook(Request $request)
     {
-        $data = $request->all();
+        $orderId = $request->input('id');
+        $newStatusInput = $request->input('status');
 
-        return response()->json(['status' => 'ok']);
+        if (!$orderId || !$newStatusInput) {
+            return response()->json(['error' => 'ID e status são obrigatórios.'], 400);
+        }
+
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return response()->json(['error' => 'Pedido não encontrado.'], 404);
+        }
+
+        $newStatus = OrderStatus::tryFrom($newStatusInput);
+
+        if (!$newStatus) {
+            return response()->json(['error' => 'Status inválido.'], 422);
+        }
+
+        $order->update(['status' => $newStatus]);
+
+        return response()->json(['message' => 'Status do pedido atualizado.']);
     }
 }

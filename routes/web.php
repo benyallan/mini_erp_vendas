@@ -13,7 +13,6 @@ Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name
 Route::post('/cart/add', [ProductController::class, 'addToCart'])->name('cart.add');
 Route::get('/checkout', [ProductController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [ProductController::class, 'finalizeOrder'])->name('checkout.finalize');
-Route::post('/webhook', [ProductController::class, 'webhook'])->name('webhook');
 Route::get('/coupons', [CouponController::class, 'index'])->name('coupons.index');
 Route::get('/coupons/create', [CouponController::class, 'create'])->name('coupons.create');
 Route::post('/coupons', [CouponController::class, 'store'])->name('coupons.store');

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrderItem extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderItemFactory> */
-    use HasFactory, FormatsCurrency;
+    use FormatsCurrency, HasFactory;
 
     /**
      * Os atributos que podem ser atribuídos em massa.

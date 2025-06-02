@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
-    use HasFactory, FormatsCurrency;
+    use FormatsCurrency, HasFactory;
 
     /**
      * Os atributos que podem ser atribuídos em massa.

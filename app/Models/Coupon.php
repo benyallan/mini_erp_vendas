@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 class Coupon extends Model
 {
     /** @use HasFactory<\Database\Factories\CouponFactory> */
-    use HasFactory, FormatsCurrency;
+    use FormatsCurrency, HasFactory;
 
     /**
      * Os atributos que podem ser preenchidos em massa.

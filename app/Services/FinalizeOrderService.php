@@ -26,7 +26,7 @@ class FinalizeOrderService
         $coupon = null;
         $discount = 0;
 
-        if (!empty($requestData['coupon_code'])) {
+        if (! empty($requestData['coupon_code'])) {
             $coupon = Coupon::where('code', $requestData['coupon_code'])->first();
 
             $discount = $coupon->discount;
@@ -71,6 +71,7 @@ class FinalizeOrderService
 
             Session::forget('cart');
             Session::forget('coupon_code');
+
             return $order;
         });
     }

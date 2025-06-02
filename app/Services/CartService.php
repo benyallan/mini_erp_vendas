@@ -9,8 +9,6 @@ class CartService
 {
     /**
      * Cache interno do cupom, evita múltiplas consultas na mesma request.
-     *
-     * @var Coupon|null
      */
     protected ?Coupon $cachedCoupon = null;
 
@@ -27,8 +25,7 @@ class CartService
     /**
      * Salva os itens do carrinho na sessão.
      *
-     * @param array<int, array<string, mixed>> $cart
-     * @return void
+     * @param  array<int, array<string, mixed>>  $cart
      */
     public function put(array $cart): void
     {
@@ -37,8 +34,6 @@ class CartService
 
     /**
      * Remove os itens do carrinho da sessão.
-     *
-     * @return void
      */
     public function clear(): void
     {
@@ -48,8 +43,7 @@ class CartService
     /**
      * Calcula o subtotal do carrinho.
      *
-     * @param array<int, array<string, mixed>> $cart
-     * @return int
+     * @param  array<int, array<string, mixed>>  $cart
      */
     public function subtotal(array $cart): int
     {
@@ -58,9 +52,6 @@ class CartService
 
     /**
      * Retorna o valor do frete baseado no subtotal.
-     *
-     * @param int $subtotal
-     * @return int
      */
     public function shipping(int $subtotal): int
     {
@@ -74,19 +65,17 @@ class CartService
     /**
      * Calcula o total do pedido (subtotal + frete).
      *
-     * @param array<int, array<string, mixed>> $cart
-     * @return int
+     * @param  array<int, array<string, mixed>>  $cart
      */
     public function total(array $cart): int
     {
         $subtotal = $this->subtotal($cart);
+
         return $subtotal + $this->shipping($subtotal);
     }
 
     /**
      * Recupera o cupom aplicado na sessão, se existir.
-     *
-     * @return Coupon|null
      */
     public function getCoupon(): ?Coupon
     {
@@ -103,10 +92,6 @@ class CartService
 
     /**
      * Calcula o valor de desconto baseado no cupom e subtotal.
-     *
-     * @param Coupon|null $coupon
-     * @param int $subtotal
-     * @return int
      */
     public function discount(?Coupon $coupon, int $subtotal): int
     {

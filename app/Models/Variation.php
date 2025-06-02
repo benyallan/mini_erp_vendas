@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Variation extends Model
 {
     /** @use HasFactory<\Database\Factories\VariationFactory> */
-    use HasFactory, FormatsCurrency;
+    use FormatsCurrency, HasFactory;
 
     /**
      * Os atributos que podem ser atribuídos em massa.

@@ -14,7 +14,10 @@
     @endif
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('products.create') }}" class="btn btn-primary">Novo Produto</a>
+        <div class="btn-group">
+            <a href="{{ route('products.create') }}" class="btn btn-primary">Novo Produto</a>
+            <a href="{{ route('coupons.index') }}" class="btn btn-warning">Cupons</a>
+        </div>
         <a href="{{ route('checkout') }}" class="btn btn-outline-secondary">Ver Carrinho</a>
     </div>
     <table class="table table-bordered">

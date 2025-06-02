@@ -92,9 +92,11 @@ class ProductController extends Controller
         $cart = $cartService->get();
         $subtotal = $cartService->subtotal($cart);
         $shipping = $cartService->shipping($subtotal);
-        $total = $subtotal + $shipping;
+        $coupon = $cartService->getCoupon();
+        $discount = $cartService->discount($coupon, $subtotal);
+        $total = $subtotal + $shipping - $discount;
 
-        return view('products.checkout', compact('cart', 'subtotal', 'shipping', 'total'));
+        return view('products.checkout', compact('cart', 'subtotal', 'shipping', 'total', 'discount', 'coupon'));
     }
 
     public function finalizeOrder(Request $request, FinalizeOrderService $service)

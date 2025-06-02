@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Variation;
 use Illuminate\Support\Facades\DB;
@@ -18,15 +19,34 @@ class FinalizeOrderService
 
         $subtotal = collect($cart)->sum(fn ($item) => $item['price'] * $item['quantity']);
         $shipping = $this->calculateShipping($subtotal);
-        $total = $subtotal + $shipping;
 
-        return DB::transaction(function () use ($cart, $requestData, $subtotal, $shipping, $total) {
+        // Aplicar cupom (se informado)
+        $coupon = null;
+        $discount = 0;
+
+        if (!empty($requestData['coupon_code'])) {
+            $coupon = Coupon::where('code', $requestData['coupon_code'])->first();
+
+            $discount = $coupon->discount;
+        }
+
+        $total = $subtotal + $shipping - $discount;
+
+        return DB::transaction(function () use (
+            $cart,
+            $requestData,
+            $subtotal,
+            $shipping,
+            $total,
+            $coupon
+        ) {
             $order = Order::create([
                 'subtotal' => $subtotal,
                 'shipping_cost' => $shipping,
                 'total' => $total,
                 'postal_code' => $requestData['cep'],
                 'address' => $requestData['address'],
+                'coupon_id' => $coupon?->id,
             ]);
 
             foreach ($cart as $item) {
@@ -46,7 +66,7 @@ class FinalizeOrderService
             }
 
             Session::forget('cart');
-
+            Session::forget('coupon_code');
             return $order;
         });
     }

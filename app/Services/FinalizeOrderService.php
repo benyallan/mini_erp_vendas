@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Variation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Mail;
 
 class FinalizeOrderService
 {
@@ -64,6 +66,8 @@ class FinalizeOrderService
                     'unit_price' => $item['price'],
                 ]);
             }
+
+            Mail::to('cliente@email.com')->send(new OrderConfirmationMail($order));
 
             Session::forget('cart');
             Session::forget('coupon_code');

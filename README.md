@@ -112,6 +112,20 @@ curl -X POST http://localhost/api/webhook \
      -d '{"id": 1, "status": "cancelled"}'
 ```
 
+### Rodando os Testes
+
+## Com Laravel
+
+```bash
+php artisan test
+```
+
+## Com Sail
+
+```bash
+./vendor/bin/sail test
+```
+
 ## Considerações Finais
 
 Este projeto foi estruturado seguindo os princípios do MVC, com código limpo, boas práticas e foco em manutenibilidade e clareza. O objetivo foi resolver o desafio de forma prática e completa, contemplando as instruções e pontos adicionais.

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\FinalizeOrderRequest;
+use App\Http\Requests\ProductRequest;
+use App\Http\Requests\WebhookRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Variation;
@@ -29,7 +33,7 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $product->update($request->only('name', 'price'));
         $product->variations()->delete();
@@ -45,7 +49,7 @@ class ProductController extends Controller
         return redirect('/');
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $product = Product::create($request->only('name', 'price'));
         foreach ($request->variations as $variationData) {
@@ -66,7 +70,7 @@ class ProductController extends Controller
         return redirect('/');
     }
 
-    public function addToCart(Request $request, CartService $cartService)
+    public function addToCart(AddToCartRequest $request, CartService $cartService)
     {
         $variation = Variation::with('stock')->findOrFail($request->variation_id);
         $quantity = (int) $request->quantity;
@@ -101,7 +105,7 @@ class ProductController extends Controller
         return view('products.checkout', compact('cart', 'subtotal', 'shipping', 'total', 'discount', 'coupon'));
     }
 
-    public function finalizeOrder(Request $request, FinalizeOrderService $service)
+    public function finalizeOrder(FinalizeOrderRequest $request, FinalizeOrderService $service)
     {
         try {
             $service->handle($request->all());
@@ -112,28 +116,13 @@ class ProductController extends Controller
         }
     }
 
-    public function webhook(Request $request)
+    public function webhook(WebhookRequest $request)
     {
-        $orderId = $request->input('id');
-        $newStatusInput = $request->input('status');
+        $order = Order::find($request->id);
 
-        if (!$orderId || !$newStatusInput) {
-            return response()->json(['error' => 'ID e status são obrigatórios.'], 400);
-        }
-
-        $order = Order::find($orderId);
-
-        if (!$order) {
-            return response()->json(['error' => 'Pedido não encontrado.'], 404);
-        }
-
-        $newStatus = OrderStatus::tryFrom($newStatusInput);
-
-        if (!$newStatus) {
-            return response()->json(['error' => 'Status inválido.'], 422);
-        }
-
-        $order->update(['status' => $newStatus]);
+        $order->update([
+            'status' => OrderStatus::from($request->status),
+        ]);
 
         return response()->json(['message' => 'Status do pedido atualizado.']);
     }

@@ -92,6 +92,16 @@ php artisan serve
 ./vendor/bin/sail artisan migrate
 ```
 
+## Decisões Técnicas
+
+- Enum nativo para status de pedido: melhora legibilidade e segurança nos valores.
+- FormRequest para validações: reduz responsabilidade dos controllers e centraliza regras.
+- Carrinho em sessão: solução simples e eficaz sem dependência de autenticação.
+- Webhook separado na api.php: evita CSRF, permite comunicação externa limpa.
+- Validação de Enum com Rule::enum(): feedback preciso e seguro para APIs.
+- Uso de Service Layer: FinalizeOrderService encapsula a lógica de criação de pedido e envio de e-mail.
+- Testes cobrindo pontos críticos: garantindo integridade do fluxo de pedidos, descontos e estoque.
+
 ## Rotas Importantes
 
 | Recurso      | Caminho                  | Método |

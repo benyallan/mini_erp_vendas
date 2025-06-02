@@ -38,7 +38,7 @@ Este é um projeto Laravel desenvolvido como parte de um teste técnico. A aplic
 - Consulta de endereço via [ViaCEP](https://viacep.com.br).
 - Cálculo de subtotal, frete, cupom e total.
 - Envio de e-mail de confirmação do pedido.
-- Enum para controle de status (pending, paid, cancelled).
+- Controle de status do pedido utilizando Enum (`pending`, `paid`, `cancelled`).
 
 ### 💸 Cupons
 
@@ -73,6 +73,23 @@ php artisan key:generate
 
 php artisan migrate
 php artisan serve
+```
+
+## Usando com Laravel Sail (Docker)
+
+
+```bash
+# Suba os containers
+./vendor/bin/sail up -d
+
+# Instale as dependências
+./vendor/bin/sail composer install
+
+# Gere a chave da aplicação
+./vendor/bin/sail artisan key:generate
+
+# Execute as migrações
+./vendor/bin/sail artisan migrate
 ```
 
 ## Rotas Importantes

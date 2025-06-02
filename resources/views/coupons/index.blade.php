@@ -7,7 +7,10 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('coupons.create') }}" class="btn btn-primary mb-3">Novo Cupom</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('coupons.create') }}" class="btn btn-primary">Novo Cupom</a>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Voltar para Produtos</a>
+    </div>
 
     <table class="table table-bordered">
         <thead>

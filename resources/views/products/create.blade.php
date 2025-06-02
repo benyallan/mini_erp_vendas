@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Criar Produto</h4>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Voltar para Lista de Produtos</a>
+    </div>
     <form method="POST" action="{{ route('products.store') }}">
         @csrf
         <div class="mb-3">

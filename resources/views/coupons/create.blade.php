@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h4>Criar Cupom</h4>
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Criar Cupom</h4>
+        <a href="{{ route('coupons.index') }}" class="btn btn-secondary">Voltar para Lista de Cupons</a>
+    </div>
 
     <form method="POST" action="{{ route('coupons.store') }}">
         @csrf

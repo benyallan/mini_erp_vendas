@@ -9,7 +9,10 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <h4>Carrinho</h4>
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Carrinho</h4>
+        <a href="{{ route('products.index') }}" class="btn btn-secondary">Voltar para Lista de Produtos</a>
+    </div>
 
     <table class="table">
         <thead>

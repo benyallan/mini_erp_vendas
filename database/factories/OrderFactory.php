@@ -29,7 +29,7 @@ class OrderFactory extends Factory
             'subtotal' => $subtotal,
             'shipping_cost' => $shipping,
             'total' => $total,
-            'postal_code' => $this->faker->postcode,
+            'postal_code' => $this->faker->numerify('########'),
             'address' => $this->faker->address,
         ];
     }

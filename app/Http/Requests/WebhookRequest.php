@@ -46,7 +46,7 @@ class WebhookRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'message' => 'The given data was invalid.',
+            'message' => 'O status informado não é válido.',
             'errors' => $validator->errors(),
         ], 422));
     }
